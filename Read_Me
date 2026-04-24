@@ -1,0 +1,45 @@
+# Self-Pruning Neural Network
+
+🚀 Overview
+This project implements a neural network that learns to prune itself during training using a gating mechanism.
+
+
+
+Each weight has a learnable gate:
+
+    pruned_weight = weight × sigmoid(gate_score)
+
+- Gate ≈ 0 → weight removed
+- Gate ≈ 1 → weight kept
+
+
+Total Loss:
+
+    Loss = CrossEntropy + λ × SparsityLoss
+
+Where:
+
+    SparsityLoss = sum of all gate values
+
+
+
+L1 pushes values toward **exact zero**, encouraging sparsity.
+
+Results
+
+| Lambda | Accuracy | Sparsity |
+|--------|---------|---------|
+| 1e-6   | 89%     | 80%     |
+| 1e-5   | 89%     | 80%     |
+| 1e-4   | 89%     | 80%     |
+
+
+Observations
+
+- Small λ → High accuracy, low pruning
+- Large λ → High pruning, lower accuracy
+- Trade-off between compression & performance
+
+
+  - Spike near 0 = successful pruning
+
